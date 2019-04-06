@@ -16,23 +16,24 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class RadicalMenu extends StatefulWidget{
+class RadicalMenu extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
     return _RadicalMenu();
   }
-
 }
 
-class _RadicalMenu extends State<RadicalMenu> with SingleTickerProviderStateMixin{
+class _RadicalMenu extends State<RadicalMenu>
+    with SingleTickerProviderStateMixin {
   AnimationController controller;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    controller =AnimationController(duration: Duration(milliseconds: 900),vsync: this);
+    controller =
+        AnimationController(duration: Duration(milliseconds: 900), vsync: this);
   }
 
   @override
@@ -40,5 +41,38 @@ class _RadicalMenu extends State<RadicalMenu> with SingleTickerProviderStateMixi
     // TODO: implement build
     return RadicalAnimation(controller: controller);
   }
+}
 
+class RadicalAnimation extends StatelessWidget {
+  final AnimationController controller;
+  RadicalAnimation({Key key, this.controller}) : super(key: key);
+  build(context) {
+    return AnimatedBuilder(
+      animation: controller,
+      builder: (context, builder) {
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            FloatingActionButton(
+              child: Icon(FontAwesomeIcons.timesCircle),
+              onPressed: _close(),
+              backgroundColor: Colors.red,
+            ),
+            FloatingActionButton(
+              child: Icon(FontAwesomeIcons.solidDotCircle),
+              onPressed: _open(),
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  _open() {
+    controller.forward();
+  }
+
+  _close() {
+    controller.reverse();
+  }
 }
