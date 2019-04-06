@@ -62,10 +62,10 @@ class RadicalAnimation extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Transform.scale(
-              scale: scale.value - 1,
+              scale: scale.value -1.5,
               child: FloatingActionButton(
                 child: Icon(FontAwesomeIcons.timesCircle),
-                onPressed: _close(),
+                onPressed: _close,
                 backgroundColor: Colors.red,
               ),
             ),
@@ -73,7 +73,7 @@ class RadicalAnimation extends StatelessWidget {
                 scale: scale.value,
                 child: FloatingActionButton(
                   child: Icon(FontAwesomeIcons.solidDotCircle),
-                  onPressed: _open(),
+                  onPressed: _open,
                 ),)
           ],
         );
