@@ -45,7 +45,15 @@ class _RadicalMenu extends State<RadicalMenu>
 
 class RadicalAnimation extends StatelessWidget {
   final AnimationController controller;
-  RadicalAnimation({Key key, this.controller}) : super(key: key);
+  RadicalAnimation({Key key, this.controller})
+      : scale = Tween<double>(
+          begin: 1.5,
+          end: 0.0,
+        ).animate(
+          CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn),
+        ),
+        super(key: key);
+  final Animation<double> scale;
   build(context) {
     return AnimatedBuilder(
       animation: controller,
@@ -53,15 +61,20 @@ class RadicalAnimation extends StatelessWidget {
         return Stack(
           alignment: Alignment.center,
           children: [
-            FloatingActionButton(
-              child: Icon(FontAwesomeIcons.timesCircle),
-              onPressed: _close(),
-              backgroundColor: Colors.red,
+            Transform.scale(
+              scale: scale.value - 1,
+              child: FloatingActionButton(
+                child: Icon(FontAwesomeIcons.timesCircle),
+                onPressed: _close(),
+                backgroundColor: Colors.red,
+              ),
             ),
-            FloatingActionButton(
-              child: Icon(FontAwesomeIcons.solidDotCircle),
-              onPressed: _open(),
-            )
+            Transform.scale(
+                scale: scale.value,
+                child: FloatingActionButton(
+                  child: Icon(FontAwesomeIcons.solidDotCircle),
+                  onPressed: _open(),
+                ),)
           ],
         );
       },
